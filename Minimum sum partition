@@ -1,0 +1,40 @@
+vector<int> helper(int nums[],int n,int sum){
+        bool t[n+1][sum+1];
+        for(int j=0 ; j<=sum;j++){
+            t[0][j] = false;
+        }
+        for(int i=0;i<=n;i++){
+            t[i][0] = true;
+        }
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=sum;j++){
+                if(nums[i-1] <= j){
+                    t[i][j] = t[i-1][j-nums[i-1]] || t[i-1][j] ;
+                }
+                else
+                {
+                    t[i][j] = t[i-1][j] ;
+                }
+            }
+        }
+        vector<int> vec;
+        for(int j = 0 ;j <= sum/2 ; j++){
+            if(t[n][j]){
+                vec.push_back(j);
+            }
+        }
+        return vec;
+    }
+	int minDifference(int arr[], int n)  { 
+	    // Your code goes here
+	     int sum =0;
+        for(int i=0;i<n;i++){
+            sum += arr[i];
+        }
+        vector<int> lastRow = helper(arr,n,sum);
+        int mn = INT_MAX;
+        for(int i=0;i<lastRow.size();i++){
+            mn = min(mn,abs(sum-2*lastRow[i]));
+        }
+        return mn;
+	} 
