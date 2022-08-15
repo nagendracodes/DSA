@@ -1,0 +1,21 @@
+int t[301][5001];
+    int helper(int k, vector<int>&coins, int n)
+    {
+        if(t[n][k]!=-1)
+            return t[n][k];
+        if(k==0)
+            return t[n][k]= 1;
+        if(n==0)
+            return t[n][k]= 0;
+        if(coins[n-1]<=k)
+        {
+            return t[n][k]= helper(k-coins[n-1],coins,n) + helper(k,coins,n-1);
+        }
+        
+            return t[n][k]=helper(k,coins,n-1);
+    }
+    int change(int amount, vector<int>& coins) {
+        memset(t,-1,sizeof(t));
+        int n=coins.size();
+        return helper(amount,coins,n);
+    }
