@@ -1,0 +1,19 @@
+ int minSetSize(vector<int>& arr) {
+       unordered_map<int,int> mp;
+        int n = arr.size();
+        for(int i=0;i<arr.size();i++){
+            mp[arr[i]]++;
+        }
+        int size = 0;
+        priority_queue<int> pq;
+        for(auto it : mp){
+            pq.push(it.second);
+        }
+        int i = n;
+        while(i>n/2 && pq.empty() == false){
+            i = i - pq.top();
+            pq.pop();
+            size++;
+        }
+        return size;
+    }
