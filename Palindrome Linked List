@@ -1,0 +1,49 @@
+ ListNode* reverseList(ListNode* head)
+    {
+        ListNode* next=NULL;
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        while(curr!=NULL)
+        {
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+            
+        }
+        return prev;
+    }
+    bool isPalindrome(ListNode* head) {
+        ListNode* curr=head;
+        int count=0;
+        while(curr)
+        {
+            count++;
+            curr=curr->next;
+        }
+        if(count<2)
+            return true;
+        int k=count/2;
+        curr=head;
+        for(int i=1;i<k;i++)
+        {
+            curr=curr->next;
+        }
+        ListNode* ptr2=NULL;
+        if(count%2==0)
+        {
+             ptr2=reverseList(curr->next);
+        }
+        else{
+            ptr2=reverseList(curr->next->next);
+        }
+        ListNode* ptr1=head;
+        while(ptr1 && ptr2)
+        {
+            if(ptr1->val!=ptr2->val)
+                return false;
+            ptr1=ptr1->next;
+            ptr2=ptr2->next;
+        }
+        return true;
+    }
